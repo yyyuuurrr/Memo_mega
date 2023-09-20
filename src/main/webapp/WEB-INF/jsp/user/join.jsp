@@ -74,7 +74,7 @@
 					, data:{"loginId":loginId, "password":password, "name":name, "email":email}
 					, success:function(data) {
 						
-						if(data.reault == "success") {
+						if(data.result == "success") {
 							
 							location.href = "/user/login-view";
 						}else {
