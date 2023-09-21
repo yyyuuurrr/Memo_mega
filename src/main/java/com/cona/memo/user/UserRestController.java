@@ -47,10 +47,8 @@ public class UserRestController {
 		}else {
 			resultMap.put("result", "fail");
 		}
-		
-		
-		return resultMap;
-			
+				
+		return resultMap;			
 	}
 	
 	
