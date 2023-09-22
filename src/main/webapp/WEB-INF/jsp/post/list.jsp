@@ -14,7 +14,31 @@
 	<div id="wrap" class="g-dark">
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 		<section class="contents d-flex justify-content-center">
-
+			<div class="post-layout text-center my-5">
+				<h2>메모 리스트</h2>
+				
+				<table class="table">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>제목</th>
+							<th>날짜</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="post" items="#{postList }">
+						<tr>
+							<td>#{post.id }</td>
+							<td>#{post.title }</td>
+							<td><fmt:formatDate value="#{post.createdAt }" pattern="yyyy-MM-dd HH:mm:ss"/></td>	
+						</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<div class="d-flex justify-content-end">
+					<a href="/post/create-view" class="btn btn-primary">글쓰기</a>
+				</div>
+			</div>
 		</section>
 		<c:import url="/WEB-INF/jsp/include/footer.jsp" />
 	</div>

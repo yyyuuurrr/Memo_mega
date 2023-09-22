@@ -10,10 +10,11 @@ header {
 	background-color:#dddddd;
 }
 
-
-
 .contents > .input-box{
 	width:400px;
+}
+.contents > .post-layout{
+	width:600px;
 }
 
 footer{
