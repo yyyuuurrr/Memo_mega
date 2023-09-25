@@ -12,7 +12,7 @@
 </head>
 <body>
 
-	<div id="wrap" class="g-dark">
+	<div id="wrap">
 		<c:import url="/WEB-INF/jsp/include/header.jsp" />
 		<section class="contents d-flex justify-content-center">
 			<div class="post-layout my-5">
@@ -23,7 +23,7 @@
 					<input type="text" class="form-control col-10" id="titleInput">
 				</div>
 				<textarea class="form-control mt-3" rows="7" id="contentInput"></textarea>
-				<input type="file" class="mt-2">
+				<input type="file" class="mt-2" id="fileInput">
 				<div class="d-flex justify-content-between mt-4">
 					<a href="/post/list-view" class="btn btn-secondary">목록으로</a>
 					<button type="button" class="btn btn-secondary" id="saveBtn">저장</button>
@@ -35,9 +35,9 @@
 
 
 
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>        
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 	<script>
 		$(document).ready(function() {
@@ -45,36 +45,46 @@
 				let title = $("#titleInput").val();
 				let content = $("#contentInput").val();
 				
-				if(title == ""){
+				let file = $("#fileInput")[0];
+				
+				if(title == "") {
 					alert("제목을 입력하세요");
 					return ;
 				}
 				
-				if(content == ""){
+				if(content == "") {
 					alert("내용을 입력하세요");
 					return ;
 				}
 				
+				// {"title:title", "content":content}
+				
+				let formData = new FormData(); 
+				formData.append("title", title);
+				formData.append("content", content);
+				formData.append("imageFile", file.files[0]);
+				
 				$.ajax({
 					type:"post"
 					, url:"/post/create"
-					, data:{"title":title, "content":content}
-					, success:function(data){
-						
-						if(data.result == "success"){
-							location.href="/post/list-view";
-						}else {
+					, data:formData
+					, enctype:"multipart/form-data" // 파일 업로드 필수 옵션
+					, processData:false // 파일 업로드 필수 옵션
+					, contentType:false // 파일 업로드 필수 옵션
+					, success:function(data) {
+						if(data.result == "success") {
+							location.href = "/post/list-view";
+						} else {
 							alert("메모 작성 실패");
 						}
+						
 					}
 					, error:function() {
 						alert("메모 작성 에러");
 					}
-					
-				})
+				});
 				
 			});
-			
 			
 			
 		});

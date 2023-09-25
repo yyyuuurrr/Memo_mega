@@ -13,13 +13,16 @@
 			`userId`
 			, `title`
 			, `content`	
+			, `imagePath`
 		)
 		VALUE
 		(
 			#{userId}
 			, #{title}
 			, #{content}
+			, #{imagePath}
 		)	
+		
 	</insert>
 
 	<select id="selectPostList" parameterType="int"
@@ -29,18 +32,32 @@
 			, `userId`
 			, `title`
 			, `content`
-			, `imagPath`
+			, `imagePath`
 			, `createdAt`
 			, `updatedAt`
 		FROM
 			`post`
 		WHERE
 			`userId` = #{userId}
-		OPDER BY
+		ORDER BY
 			`id` DESC
-			
-		
+				
+	</select>
 	
+	<select id="selectPost" parameterType="int"
+		resultType="com.cona.memo.post.domain.Post">
+		SELECT
+			`id`
+			, `userId`
+			, `title`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`
+		FROM
+			`post`
+		WHERE
+			`id` = #{id}
 	</select>
 
 </mapper>

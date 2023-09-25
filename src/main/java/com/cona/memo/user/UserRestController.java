@@ -39,7 +39,7 @@ public class UserRestController {
 			// 세션에 로그인이 되었다 라는 정보를 저장
 			// 세션에 사용자와 관련된 정보를 저장
 			// 세션에 사용자 정보가 저장된 경우 로그인된 상태로 파악
-			session.setAttribute("userId", user.getLoginId());
+			session.setAttribute("userId", user.getId());
 			session.setAttribute("userName", user.getName());
 			
 			

@@ -13,22 +13,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class UserController {
 	
 	@GetMapping("/join-view")
-	public String joinInput() {		
-		return "user/join";		
+	public String joinInput() {
+		return "user/join";
 	}
 	
 	@GetMapping("/login-view")
-	public String loginInput() {		
-		return "user/login";		
+	public String loginInput() {
+		return "user/login";
 	}
 	
 	@GetMapping("/logout")
 	public String logout(HttpServletRequest request) {
-			
+		
 		HttpSession session = request.getSession();
 		session.removeAttribute("userId");
 		session.removeAttribute("userName");
 		
-		return "redirect:/user/login-view";
+		return "redirect:/user/login-view";		
 	}
+	
 }

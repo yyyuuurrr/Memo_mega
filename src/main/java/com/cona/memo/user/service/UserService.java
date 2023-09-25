@@ -23,17 +23,14 @@ public class UserService {
 		User user = optionalUser.orElse(null);
 		
 		return user;
-		
 	}
-	
 	
 	public User addUser(
 			String loginId
 			, String password
 			, String name
-			, String email){
-				
-		// 비밀번호 암호화
+			, String email) {
+		
 		String encryptPassword = EncryptUtils.md5(password);
 		
 		User user = User.builder()
