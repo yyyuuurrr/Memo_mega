@@ -1,2 +1,2 @@
-# Memo_mega
+# Memo
 memo 프로젝트
